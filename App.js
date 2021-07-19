@@ -1,13 +1,35 @@
 import { StatusBar } from 'expo-status-bar'
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import Header from './components/Header'
+import { useFonts } from 'expo-font'
+import CountryCards from './components/country-cards/CountryCards'
+import Search from './components/search/Search'
 
-export default function App() {
+const App = () => {
+  const [fontsLoaded] = useFonts({
+    'nunito-light': require('./assets/fonts/NunitoSans-Light.ttf'),
+    'nunito-regular': require('./assets/fonts/NunitoSans-Regular.ttf'),
+    'nunito-bold': require('./assets/fonts/NunitoSans-Bold.ttf'),
+  })
+
+  const [filteredValue, setFilteredValue] = useState(null)
+  const [searchedValue, setSearchedValue] = useState(null)
+
+  if (!fontsLoaded) {
+    return null
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <Header />
+      <Text>{searchedValue}</Text>
+      <Search
+        setFilteredValue={setFilteredValue}
+        setSearchedValue={setSearchedValue}
+      />
+      <CountryCards options={{ searchedValue, filteredValue }} />
+    </>
   )
 }
 
@@ -19,3 +41,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 })
+
+export default App
