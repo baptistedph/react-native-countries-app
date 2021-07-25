@@ -51,8 +51,8 @@ const Country = ({ route, navigation }) => {
         </Text>
         <View style={styles.borders}>
           {item.borders.map(border => (
-            <TouchableOpacity onPress={() => handlePress(border)}>
-              <View key={border} style={styles.border}>
+            <TouchableOpacity key={border} onPress={() => handlePress(border)}>
+              <View style={styles.border}>
                 <Text style={styles.item}>{border}</Text>
               </View>
             </TouchableOpacity>
