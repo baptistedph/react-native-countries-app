@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, StyleSheet, FlatList, View } from 'react-native'
+import {
+  ScrollView,
+  StyleSheet,
+  FlatList,
+  View,
+  TouchableOpacity,
+} from 'react-native'
 import CountryCard from './CountryCard'
 
-const CountryCards = ({ options }) => {
+const CountryCards = ({ options, navigation }) => {
   const [countries, setCountries] = useState([])
   const [filteredCountries, setFilteredCountries] = useState([])
 
@@ -10,9 +16,7 @@ const CountryCards = ({ options }) => {
 
   useEffect(() => {
     if (filteredValue && filteredValue !== 'all') {
-      console.log(1)
       if (searchedValue) {
-        console.log(3)
         setFilteredCountries(
           countries.filter(
             country =>
@@ -31,7 +35,9 @@ const CountryCards = ({ options }) => {
       }
     } else if (searchedValue) {
       setFilteredCountries(
-        countries.filter(country => country.name.includes(searchedValue)),
+        countries.filter(country =>
+          country.name.toLowerCase().includes(searchedValue.toLowerCase()),
+        ),
       )
     } else {
       setFilteredCountries(countries)
@@ -55,12 +61,15 @@ const CountryCards = ({ options }) => {
         data={filteredCountries}
         renderItem={({ item }) => {
           return (
-            <CountryCard
-              name={item.name}
-              pop={item.population}
-              region={item.region}
-              capital={item.capital}
-            />
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Country', { item })}>
+              <CountryCard
+                name={item.name}
+                pop={item.population}
+                region={item.region}
+                capital={item.capital}
+              />
+            </TouchableOpacity>
           )
         }}
         keyExtractor={(item, index) => index.toString()}

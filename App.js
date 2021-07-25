@@ -1,10 +1,12 @@
 import { StatusBar } from 'expo-status-bar'
 import React, { useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import Header from './components/Header'
 import { useFonts } from 'expo-font'
 import CountryCards from './components/country-cards/CountryCards'
 import Search from './components/search/Search'
+import HomeStack from './routes/homeStack'
+import { NavigationContainer } from '@react-navigation/native'
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -21,25 +23,16 @@ const App = () => {
   }
 
   return (
-    <>
+    <NavigationContainer>
       <Header />
-      <Text>{searchedValue}</Text>
-      <Search
+      <HomeStack
         setFilteredValue={setFilteredValue}
         setSearchedValue={setSearchedValue}
+        filteredValue={filteredValue}
+        searchedValue={searchedValue}
       />
-      <CountryCards options={{ searchedValue, filteredValue }} />
-    </>
+    </NavigationContainer>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
 
 export default App

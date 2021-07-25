@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     backgroundColor: 'white',
     marginBottom: 30,
+    borderRadius: 3,
   },
   flag: {
     height: 250,
@@ -41,7 +42,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     alignItems: 'center',
   },
-
   info: {
     padding: 30,
   },
