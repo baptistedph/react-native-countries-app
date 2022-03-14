@@ -1,10 +1,13 @@
 import React from 'react'
 import { StyleSheet, Text, View, Dimensions, Image } from 'react-native'
-import { SvgUri } from 'react-native-svg'
 
-const CountryCard = ({ name, pop, region, capital }) => {
+const CountryCard = ({ flag, name, pop, region, capital }) => {
   return (
     <View style={styles.card}>
+      <Image
+        style={{ width: '100%', height: 150, borderRadius: 8 }}
+        source={{ uri: flag }}
+      />
       <View style={styles.info}>
         <Text style={styles.name}>{name}</Text>
         <Text style={{ ...styles.item, marginTop: 12 }}>
@@ -24,17 +27,9 @@ const CountryCard = ({ name, pop, region, capital }) => {
 const styles = StyleSheet.create({
   card: {
     width: Dimensions.get('window').width - 60,
-    backgroundColor: 'white',
-    shadowColor: 'black',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.08,
-    shadowRadius: 3,
-    backgroundColor: 'white',
-    marginBottom: 30,
-    borderRadius: 3,
+    backgroundColor: '#1f2b3d',
+    marginBottom: 20,
+    borderRadius: 8,
   },
   flag: {
     height: 250,
@@ -48,14 +43,17 @@ const styles = StyleSheet.create({
   name: {
     fontFamily: 'nunito-bold',
     fontSize: 25,
+    color: 'white',
   },
   item: {
     fontSize: 20,
     fontFamily: 'nunito-light',
     marginTop: 5,
+    color: 'white',
   },
   bold: {
     fontFamily: 'nunito-bold',
+    color: 'white',
   },
 })
 

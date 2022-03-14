@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native'
 const Header = () => {
   return (
     <View style={styles.header}>
+      <Text style={styles.subtitle}>Made with ❤️ by Baptiste D. - 2021</Text>
       <Text style={styles.text}>Where in the world?</Text>
     </View>
   )
@@ -15,18 +16,18 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    shadowColor: 'black',
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowOpacity: 0.15,
-    shadowRadius: 3,
-    backgroundColor: 'white',
+    backgroundColor: '#17212f',
   },
   text: {
     fontSize: 20,
+    fontFamily: 'nunito-bold',
+    color: 'white',
+  },
+  subtitle: {
+    fontSize: 10,
+    marginBottom: 10,
     fontFamily: 'nunito-regular',
+    color: 'white',
   },
 })
 

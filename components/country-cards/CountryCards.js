@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {
-  ScrollView,
+  Text,
   StyleSheet,
   FlatList,
   View,
@@ -20,7 +20,7 @@ const CountryCards = ({ options, navigation }) => {
         setFilteredCountries(
           countries.filter(
             country =>
-              country.name
+              country.name.common
                 .toLowerCase()
                 .includes(searchedValue.toLowerCase()) &&
               country.region.toLowerCase() === filteredValue,
@@ -36,7 +36,9 @@ const CountryCards = ({ options, navigation }) => {
     } else if (searchedValue) {
       setFilteredCountries(
         countries.filter(country =>
-          country.name.toLowerCase().includes(searchedValue.toLowerCase()),
+          country.name.common
+            .toLowerCase()
+            .includes(searchedValue.toLowerCase()),
         ),
       )
     } else {
@@ -45,7 +47,7 @@ const CountryCards = ({ options, navigation }) => {
   }, [searchedValue, filteredValue])
 
   const getCountries = async () => {
-    const res = await fetch('https://restcountries.eu/rest/v2/all')
+    const res = await fetch('https://restcountries.com/v3.1/all')
     const data = await res.json()
     setCountries(data)
     setFilteredCountries(data)
@@ -55,25 +57,30 @@ const CountryCards = ({ options, navigation }) => {
     getCountries()
   }, [])
 
+  const renderItem = ({ item }) => (
+    <TouchableOpacity onPress={() => navigation.navigate('Country', { item })}>
+      <CountryCard
+        flag={item.flags.png}
+        name={item.name.common}
+        pop={item.population}
+        region={item.region}
+        capital={item.capital ? item.capital[0] : 'Unknown'}
+      />
+    </TouchableOpacity>
+  )
+
   return (
     <View style={styles.container}>
-      <FlatList
-        data={filteredCountries}
-        renderItem={({ item }) => {
-          return (
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Country', { item })}>
-              <CountryCard
-                name={item.name}
-                pop={item.population}
-                region={item.region}
-                capital={item.capital}
-              />
-            </TouchableOpacity>
-          )
-        }}
-        keyExtractor={(item, index) => index.toString()}
-      />
+      {filteredCountries.length > 0 ? (
+        <FlatList
+          data={filteredCountries}
+          should
+          renderItem={renderItem}
+          keyExtractor={(_, index) => index.toString()}
+        />
+      ) : (
+        <Text style={styles.text}>No results.</Text>
+      )}
     </View>
   )
 }
@@ -82,7 +89,12 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     alignItems: 'center',
-    padding: 30,
+    paddingHorizontal: 30,
+    paddingBottom: 300,
+  },
+  text: {
+    fontSize: 16,
+    fontFamily: 'nunito-regular',
   },
 })
 

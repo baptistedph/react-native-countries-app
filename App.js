@@ -1,10 +1,6 @@
-import { StatusBar } from 'expo-status-bar'
 import React, { useState } from 'react'
-import { StyleSheet } from 'react-native'
 import Header from './components/Header'
 import { useFonts } from 'expo-font'
-import CountryCards from './components/country-cards/CountryCards'
-import Search from './components/search/Search'
 import HomeStack from './routes/homeStack'
 import { NavigationContainer } from '@react-navigation/native'
 

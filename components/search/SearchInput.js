@@ -1,16 +1,21 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Text, TextInput, Dimensions } from 'react-native'
+import { StyleSheet, TextInput, Dimensions } from 'react-native'
 
 const SearchInput = ({ setSearchedValue }) => {
+  const [borderColor, setBorderColor] = useState('#ffffff22')
+
   const handleChange = value => {
     setSearchedValue(value)
   }
 
   return (
     <TextInput
+      placeholderTextColor="#aaaaaa"
       onChangeText={handleChange}
-      style={styles.input}
+      style={{ ...styles.input, borderColor }}
       placeholder="Search a country"
+      onFocus={() => setBorderColor('#ffffff88')}
+      onBlur={() => setBorderColor('#ffffff22')}
     />
   )
 }
@@ -22,8 +27,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderWidth: 1,
     borderColor: '#00000022',
-    borderRadius: 2,
-    color: 'black',
+    borderRadius: 4,
+    color: 'white',
     width: Dimensions.get('window').width - 60,
   },
 })

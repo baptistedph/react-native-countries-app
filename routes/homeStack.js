@@ -12,7 +12,14 @@ const HomeStack = ({
   filteredValue,
 }) => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#17212f',
+        },
+        headerTintColor: 'white',
+        cardStyle: { backgroundColor: '#17212f' },
+      }}>
       <Stack.Screen name="Home">
         {props => (
           <Home
